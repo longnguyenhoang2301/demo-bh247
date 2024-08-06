@@ -1,17 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { CustomTable } from '../components';
-import { TableColumnsType } from 'antd';
+import { Table } from 'antd';
 
 export type TableSearchType = 'none' | 'input' | 'select'
 
 const meta = {
   title: 'CUSTOM/Table',
-  component: CustomTable,
+  component: Table,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof CustomTable>;
+} satisfies Meta<typeof Table>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -24,38 +23,38 @@ interface DataType {
   english: string;
 }
 
-interface Filtertype {
-  filterType?: TableSearchType
-}
-
-const columns: any & Filtertype = [
+const columns: any = [
   {
-    title: 'Name',
+    title: "Name",
+    showSorterTooltip: false,
+    sorter: (a: any, b: any) => a.name.localeCompare(b.name),
     dataIndex: 'name',
-    filterType: 'none'
   },
   {
-    title: 'Chinese Score',
+    title: "Chinese Score",
     dataIndex: 'chinese',
+    showSorterTooltip: false,
     sorter: {
       compare: (a: any, b: any) => a.chinese - b.chinese,
-      multiple: 3,
+      // multiple: 3,
     },
   },
   {
     title: 'Math Score',
     dataIndex: 'math',
+    showSorterTooltip: false,
     sorter: {
       compare: (a: any, b: any) => a.math - b.math,
-      multiple: 2,
+      // multiple: 2,
     },
   },
   {
     title: 'English Score',
     dataIndex: 'english',
+    showSorterTooltip: false,
     sorter: {
       compare: (a: any, b: any) => a.english.localeCompare(b.english),
-      multiple: 1,
+      // multiple: 1,
     },
   },
 ];
@@ -95,6 +94,7 @@ export const Primary: Story = {
   args: {
     columns,
     dataSource: data,
+    style: { width: '90vw' }
   },
 };
 
