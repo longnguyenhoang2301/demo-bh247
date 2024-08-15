@@ -1,10 +1,29 @@
-.main-layout {
-    .ant-layout .ant-layout-sider-trigger {
-        top: 0 !important;
-        bottom: auto;
+.main-layout{
+    .header-sider{
+      height:70px;
     }
-    
-    .ant-layout-sider-children {
-        margin-top: 48px !important;
+    .header{
+      background: #fff;
+      position: fixed;
+      z-index: 99;
+      left: 80px;
+      right: 0;
+      align-items: center;
     }
-}
+    .header-mobile{
+      background: #fff;
+      position: fixed;
+      z-index: 99;
+      left: 0px;
+      right: 0;
+      padding: 0;
+      align-items: center;
+    }
+
+    .content {
+      margin-top: 64px;
+      overflow-y: scroll;
+      height: calc(100vh - 64px);
+    }
+  }
+  

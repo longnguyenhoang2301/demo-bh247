@@ -33,7 +33,8 @@ const items: MenuItem[] = [
   getItem('Friend', 'friend', <TeamOutlined />),
 ];
 
-const MainLayout: FC<{children: ReactNode}> = ({ children }) => {
+const MainLayout: FC<{ title: string; children: ReactNode }> = (props) => {
+  const {title, children} = props;
   // const navigate = useNavigate();
   // const location = useLocation();
   const [collapsed, setCollapsed] = useState(true);
@@ -48,12 +49,12 @@ const MainLayout: FC<{children: ReactNode}> = ({ children }) => {
 
   const handleClickMenu = (value: any) => {
     let key = value.key.toString();
-    if(key !== '1') {
-        setActiveKey(key);
-        // navigate(`/${key}`);
+    if (key !== '1') {
+      setActiveKey(key);
+      // navigate(`/${key}`);
     } else {
-        setActiveKey(key);
-        // navigate('/');
+      setActiveKey(key);
+      // navigate('/');
     }
   };
 
@@ -65,8 +66,12 @@ const MainLayout: FC<{children: ReactNode}> = ({ children }) => {
           <Menu onClick={handleClickMenu} theme="dark" selectedKeys={[activeKey]} defaultSelectedKeys={['1']} mode="inline" items={items} />
         </Sider>
         <Layout>
-          <Header style={{ padding: 0, background: 'white' }} />
-          <Content style={{ margin: '0 16px' }}>
+          <Header className="header">
+            <div className={'dpl-flex justify-content-between align-items-center'}>
+              <span className={'txt-size-h5 robotomedium'}>{title ? title : ''}</span>
+            </div>
+          </Header>
+          <Content className='content'>
             <div
               style={{
                 padding: 24,

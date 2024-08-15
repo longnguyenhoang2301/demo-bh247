@@ -11,6 +11,13 @@
       color:$txt-color-white;
       background-color: #163665;
     }
+    .ant-table-thead > tr > th:first-child {
+      border-radius: 0!important;
+    }
+    
+    .ant-table-thead > tr > th:last-child {
+      border-radius: 0!important;
+    }
     .ant-table-thead > tr > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
       height: 100%;
       background-color: $bg-color-white;
@@ -54,6 +61,5 @@
         }
       }
     }
-    
   }
 }
