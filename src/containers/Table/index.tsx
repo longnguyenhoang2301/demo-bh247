@@ -1,7 +1,7 @@
 import { Dispatch, FC, SetStateAction, useMemo, useState } from "react";
 import MainLayout from '../../components/Layout';
 import { Button, Col, Input, Radio, Row, Select, Table, TableColumnsType } from 'antd';
-import { LabelCustom, ModalAddEdit } from '../../components';
+import { FilterGroup, LabelCustom, ModalAddEdit } from '../../components';
 import { useForm } from 'antd/es/form/Form';
 import { EditOutlined, EyeOutlined } from '@ant-design/icons';
 import lodash from 'lodash';
@@ -26,21 +26,22 @@ interface DataType {
 const TablePage: FC<{}> = () => {
   const [form] = useForm();
   const [open, setOpen] = useState<boolean>(false);
+  const [openSearch, setOpenSearch] = useState<boolean>(false);
   const [filter, setFilter] = useState<any>({
     key: '',
-    so_hsgd: '',
-    ten_don_vi: '',
-    ngay_nhap: '',
-    ten_ndbh: '',
-    so_seria: '',
-    bks_sk_sm: '',
-    ngay_ton_that: '',
-    uoc_ban_dau: '',
-    trang_thai: '',
-    loai_hsgd: '',
-    cbtt_gd: '',
-    giao_gd: '',
-    nhan_gd: '',
+    so_hsgd: { value: '', order: 'null' },
+    ten_don_vi: { value: '', order: 'null' },
+    ngay_nhap: { value: '', order: 'null' },
+    ten_ndbh: { value: '', order: 'null' },
+    so_seria: { value: '', order: 'null' },
+    bks_sk_sm: { value: '', order: 'null' },
+    ngay_ton_that: { value: '', order: 'null' },
+    uoc_ban_dau: { value: '', order: 'null' },
+    trang_thai: { value: '', order: 'null' },
+    loai_hsgd: { value: '', order: 'null' },
+    cbtt_gd: { value: '', order: 'null' },
+    giao_gd: { value: '', order: 'null' },
+    nhan_gd: { value: '', order: 'null' },
   });
 
   const onSubmit = () => {
@@ -55,15 +56,15 @@ const TablePage: FC<{}> = () => {
         label="Số HSGĐ"
         type="input"
         inputProps={{
-          size: 'small',
           onClick: (e) => e.stopPropagation(),
         }}
+        openSearch={openSearch}
+        setOpenSearch={setOpenSearch}
         filter={filter}
         setFilter={setFilter}
       />,
       width: 150,
       showSorterTooltip: false,
-      sorter: (a, b) => a.so_hsgd.localeCompare(b.so_hsgd),
       dataIndex: 'so_hsgd',
     },
     {
@@ -72,15 +73,15 @@ const TablePage: FC<{}> = () => {
         label="Tên đơn vị"
         type="input"
         inputProps={{
-          size: 'small',
           onClick: (e) => e.stopPropagation(),
         }}
+        openSearch={openSearch}
+        setOpenSearch={setOpenSearch}
         filter={filter}
         setFilter={setFilter}
       />,
       width: 200,
       showSorterTooltip: false,
-      sorter: (a, b) => a.ten_don_vi.localeCompare(b.ten_don_vi),
       dataIndex: 'ten_don_vi',
     },
     {
@@ -89,22 +90,20 @@ const TablePage: FC<{}> = () => {
         label="Ngày nhập"
         type="date-piker"
         datePikerProps={{
-          size: 'small',
           placeholder: '',
           onClick: (e) => e.stopPropagation(),
-          // style: {
-          //   width: '100%'
-          // }
+          style: {
+            width: '100%'
+          }
         }}
+        openSearch={openSearch}
+        setOpenSearch={setOpenSearch}
         filter={filter}
         setFilter={setFilter}
       />,
       width: 160,
       dataIndex: 'ngay_nhap',
       showSorterTooltip: false,
-      sorter: {
-        compare: (a, b) => a.ngay_nhap.localeCompare(b.ngay_nhap),
-      },
     },
     {
       title: <LabelCustom
@@ -112,15 +111,15 @@ const TablePage: FC<{}> = () => {
         label="Tên NĐBH"
         type="input"
         inputProps={{
-          size: 'small',
           onClick: (e) => e.stopPropagation(),
         }}
+        openSearch={openSearch}
+        setOpenSearch={setOpenSearch}
         filter={filter}
         setFilter={setFilter}
       />,
       width: 200,
       showSorterTooltip: false,
-      sorter: (a, b) => a.ten_ndbh.localeCompare(b.ten_ndbh),
       dataIndex: 'ten_ndbh',
     },
     {
@@ -129,7 +128,6 @@ const TablePage: FC<{}> = () => {
         label="Số Seria"
         type="select"
         selectProps={{
-          size: 'small',
           options: [
             {
               label: '1',
@@ -149,12 +147,13 @@ const TablePage: FC<{}> = () => {
             width: '100%'
           }
         }}
+        openSearch={openSearch}
+        setOpenSearch={setOpenSearch}
         filter={filter}
         setFilter={setFilter}
       />,
       width: 120,
       showSorterTooltip: false,
-      sorter: (a, b) => a.so_seria.localeCompare(b.so_seria),
       dataIndex: 'so_seria',
     },
     {
@@ -163,15 +162,15 @@ const TablePage: FC<{}> = () => {
         label="BKS(SK/SM)"
         type="input"
         inputProps={{
-          size: 'small',
           onClick: (e) => e.stopPropagation(),
         }}
+        openSearch={openSearch}
+        setOpenSearch={setOpenSearch}
         filter={filter}
         setFilter={setFilter}
       />,
       width: 120,
       showSorterTooltip: false,
-      sorter: (a, b) => a.bks_sk_sm.localeCompare(b.bks_sk_sm),
       dataIndex: 'bks_sk_sm',
     },
     {
@@ -180,22 +179,20 @@ const TablePage: FC<{}> = () => {
         label="Ngày tổn thất"
         type="date-piker"
         datePikerProps={{
-          size: 'small',
           placeholder: '',
           onClick: (e) => e.stopPropagation(),
-          // style: {
-          //   width: '100%'
-          // }
+          style: {
+            width: '100%'
+          }
         }}
+        openSearch={openSearch}
+        setOpenSearch={setOpenSearch}
         filter={filter}
         setFilter={setFilter}
       />,
       width: 160,
       dataIndex: 'ngay_ton_that',
       showSorterTooltip: false,
-      sorter: {
-        compare: (a, b) => a.ngay_ton_that.localeCompare(b.ngay_ton_that),
-      },
     },
     {
       title: <LabelCustom
@@ -203,16 +200,16 @@ const TablePage: FC<{}> = () => {
         label="Ước ban đầu"
         type="input"
         inputProps={{
-          size: 'small',
           type: 'number',
           onClick: (e) => e.stopPropagation(),
         }}
+        openSearch={openSearch}
+        setOpenSearch={setOpenSearch}
         filter={filter}
         setFilter={setFilter}
       />,
       width: 150,
       showSorterTooltip: false,
-      sorter: (a, b) => Number(a.uoc_ban_dau) - Number(b.uoc_ban_dau),
       dataIndex: 'uoc_ban_dau',
     },
     {
@@ -221,15 +218,15 @@ const TablePage: FC<{}> = () => {
         label="Loại GSGĐ"
         type="input"
         inputProps={{
-          size: 'small',
           onClick: (e) => e.stopPropagation(),
         }}
+        openSearch={openSearch}
+        setOpenSearch={setOpenSearch}
         filter={filter}
         setFilter={setFilter}
       />,
       width: 150,
       showSorterTooltip: false,
-      sorter: (a, b) => a.loai_hsgd.localeCompare(b.loai_hsgd),
       dataIndex: 'loai_hsgd',
     },
     {
@@ -238,15 +235,15 @@ const TablePage: FC<{}> = () => {
         label="CBTT GĐ"
         type="input"
         inputProps={{
-          size: 'small',
           onClick: (e) => e.stopPropagation(),
         }}
+        openSearch={openSearch}
+        setOpenSearch={setOpenSearch}
         filter={filter}
         setFilter={setFilter}
       />,
       width: 150,
       showSorterTooltip: false,
-      sorter: (a, b) => a.cbtt_gd.localeCompare(b.cbtt_gd),
       dataIndex: 'cbtt_gd',
     },
     {
@@ -255,15 +252,15 @@ const TablePage: FC<{}> = () => {
         label="Giao GĐ"
         type="input"
         inputProps={{
-          size: 'small',
           onClick: (e) => e.stopPropagation(),
         }}
+        openSearch={openSearch}
+        setOpenSearch={setOpenSearch}
         filter={filter}
         setFilter={setFilter}
       />,
       width: 120,
       showSorterTooltip: false,
-      sorter: (a, b) => a.giao_gd.localeCompare(b.giao_gd),
       dataIndex: 'giao_gd',
     },
     {
@@ -272,19 +269,27 @@ const TablePage: FC<{}> = () => {
         label="Nhận GĐ"
         type="input"
         inputProps={{
-          size: 'small',
           onClick: (e) => e.stopPropagation(),
         }}
+        openSearch={openSearch}
+        setOpenSearch={setOpenSearch}
         filter={filter}
         setFilter={setFilter}
       />,
       width: 120,
       showSorterTooltip: false,
-      sorter: (a, b) => a.nhan_gd.localeCompare(b.nhan_gd),
       dataIndex: 'nhan_gd',
     },
     {
-      title: '',
+      title: <LabelCustom
+        name="action"
+        label=""
+        type='none'
+        openSearch={openSearch}
+        setOpenSearch={setOpenSearch}
+        filter={filter}
+        setFilter={setFilter}
+      />,
       dataIndex: 'action',
       key: 'action',
       width: 100,
@@ -494,19 +499,19 @@ const TablePage: FC<{}> = () => {
       nhan_gd: 'Đang GĐ',
     },
   ];
-  
+
   const dataSourceFilter = useMemo(() => {
-    return data.filter((item: DataType) => {
-      const isCheck: boolean[] = [];
-      const itemKeys = Object.entries(item).map(([key, value]) => ({
-        key: key,
-        value: value
-      }));
-      itemKeys.forEach(i => {
-        isCheck.push(i.value.toUpperCase().includes(filter[i.key].toUpperCase()))
-      })
-      return isCheck.every(e => e);
-    });
+    const itemKey = Object.entries(filter).map(([key, value]: any) => ({
+      key: key,
+      value: value
+    })).find(item => item.value.order !== 'null');
+    if (!!itemKey) {
+      const sortData = data.sort((a: any, b: any) => itemKey.value.order === 'ascend'
+        ? a[itemKey.key].localeCompare(b[itemKey.key]) : b[itemKey.key].localeCompare(a[itemKey.key]))
+      return sortData;
+    } else {
+      return data;
+    }
   }, [data, filter])
 
   return <MainLayout title="Hồ sơ giám định Ô tô">
@@ -524,17 +529,88 @@ const TablePage: FC<{}> = () => {
           <Select placeholder="Chọn năm dữ liệu" options={[]}></Select>
         </Col>
         <Col>
-          <Button onClick={() => {}}>Xuất Excel</Button>
+          <Button onClick={() => { }}>Xuất Excel</Button>
         </Col>
       </Col>
     </div>
+    <div className="mgbt16">
+      <FilterGroup
+        form={form}
+        options={[
+          {
+            name: 'input_default',
+            label: 'Input Default',
+            type: 'input',
+            rules: [{ required: true, message: 'Please input!' }],
+            inputProps: {}
+          },
+          {
+            name: 'input_password',
+            label: 'Input Password',
+            type: 'input',
+            rules: [{ required: true, message: 'Please input!' }],
+            inputProps: {
+              type: 'password',
+            }
+          },
+          {
+            name: 'select_default',
+            label: 'Select Default',
+            type: 'select',
+            rules: [],
+            selectProps: {
+              options: [
+                { label: 'Options 1', value: '1' },
+                { label: 'Options 2', value: '2' },
+                { label: 'Options 3', value: '3' }
+              ]
+            }
+          },
+          {
+            name: 'select_muti',
+            label: 'Select Mutiple',
+            type: 'select',
+            rules: [],
+            selectProps: {
+              options: [
+                { label: 'Options 1', value: '1' },
+                { label: 'Options 2', value: '2' },
+                { label: 'Options 3', value: '3' }
+              ],
+              mode: 'tags'
+            }
+          },
+          {
+            name: 'input_nunber',
+            label: 'Input Number',
+            type: 'input',
+            rules: [],
+            inputProps: {
+              type: 'number'
+            }
+          },
+          {
+            name: 'date_piker',
+            label: 'Date Picker',
+            type: 'date-picker',
+            rules: [],
+            datePickProps: {
+              style: { width: '100%' }
+            }
+          }
+        ]}
+        onSubmit={onSubmit}
+        onReset={() => { }}
+      />
+    </div>
+
     <Table
       columns={columns}
       dataSource={dataSourceFilter}
       scroll={{ x: 1800 }}
     />
 
-    <ModalAddEdit
+    {/* <ModalAddEdit
       form={form}
       open={open}
       title='Chỉnh sửa tài khoản'
@@ -618,7 +694,7 @@ const TablePage: FC<{}> = () => {
       ]}
       onSubmit={onSubmit}
       onCancel={() => setOpen(!open)}
-    />
+    /> */}
   </MainLayout>
 }
 
